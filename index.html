@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Numerology</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <style rel="stylesheet" ahref="style.css"></style>
+</head>
+<body onload="load()">
+
+    <div class="container">
+        <br>
+        <h1 class="text-center">Numerology</h1>
+
+        <!-- Date Input -->
+        <form class="text-center">
+            <div class="form-group">
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" class="form-control w-50 mx-auto" id="birthdate">
+            </div>
+            <p id="info"></p>
+        </form>
+
+        <!-- Stylish 3x3 Table -->
+        <table class="table table-bordered w-75 mx-auto" id="god">
+            <tbody>
+                <tr>
+                    <td id="three">&nbsp;</td>
+                    <td id="one">&nbsp;</td>
+                    <td id="nine">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id="six">&nbsp;</td>
+                    <td id="seven">&nbsp;</td>
+                    <td id="five">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id="two">&nbsp;</td>
+                    <td id="eight">&nbsp;</td>
+                    <td id="four">&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="number" class="form-control" id="inputyear"><br>
+        <button onclick="basic()" class="btn btn-success" style="text-align: center;">Find</button>
+        <br>
+        <p>*Mahadasha is in red and Antardasha is in blue</p>
+        <hr>
+        <div id="tableContainer"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="bruh.js"></script>
+    
+    <script src="main.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
