@@ -50,6 +50,7 @@ function getMahadashaForYear(startYear, birthYear, rootNumber) {
 
     // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
     const dayOfWeek = birthdayDate.getDay();
+    //console.log(dayOfWeek);
 
     // Map days of the week to corresponding numbers
     const dayNumberMap = {
@@ -64,7 +65,8 @@ function getMahadashaForYear(startYear, birthYear, rootNumber) {
 
     // Return the corresponding number for the day of the week
     var add1 = Number(year.toString().split("")[2])+Number(year.toString().split("")[3]);
-    add1 = add1+day+month+dayNumberMap[dayOfWeek]
+    add1 += addn(Number(birthdayArray[0]))+addn(Number(birthdayArray[1]))+dayNumberMap[dayOfWeek];
+    //console.log(dayNumberMap[dayOfWeek])
     return addn(add1);
   }
 
@@ -174,7 +176,7 @@ function calculatePratianterDasha(birthdayArray, anterdasha) {
         // Increment the anterdasha (wrap around if it exceeds 9)
         currentAnterdasha = (currentAnterdasha % 9) + 1;
     }
-    console.log(result)
+    //console.log(result)
     return result;
 }
 
@@ -190,7 +192,7 @@ function cloneTablesWithMahadashaAndDay(startYear, endYear, birthYear, rootNumbe
     
     // Clear previous tables from the container
     container.innerHTML = '';
-    
+    console.log(birthdayArray);
     // Define cell positions for Mahadasha and Day of the Week number updates
     const cellPositions = {
       'R1C1': 3, 'R1C2': 1, 'R1C3': 9,
@@ -208,6 +210,8 @@ function cloneTablesWithMahadashaAndDay(startYear, endYear, birthYear, rootNumbe
     
       // Get the Day of the Week number for the current year
       const dayOfWeekNumber = getDayOfWeekNumber(birthdayArray, year);
+      console.log(year);
+      //console.log(birthdayArray, year, dayOfWeekNumber);
     
       // Get all the rows in the cloned table
       const rows = clone.getElementsByTagName('tr');

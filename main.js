@@ -25,6 +25,21 @@ mahadasha = {
 function load(){
     const currentYear = new Date().getFullYear();
     document.getElementById("inputyear").value = currentYear;
+
+    // Retrieve the date string from localStorage
+    var getdat = localStorage.getItem('birthdate');
+
+    if (getdat !== null) {
+        document.getElementById("birthdate")._flatpickr.setDate(getdat);
+        document.getElementById("mainbutton").click();
+    }
+}
+function formatDateDDMMYYYY(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
 }
 function root(){
     var num = String(document.getElementById("birthdate").value);
@@ -79,8 +94,11 @@ function basic(){
         }
     }
 
-    cloneTablesWithMahadashaAndDay(currentYears, currentYears+20, Number(numb[2]), root(), numb)
-    console.log(year);
+    cloneTablesWithMahadashaAndDay(currentYears, currentYears+20, Number(numb[2]), root(), String(document.getElementById("birthdate").value).split("-"))
+    //console.log(year);
+
+    localStorage.setItem('birthdate', document.getElementById('birthdate').value); //save data
+
 }
 function add(num){
     var numb = num.toString().split('').map(function(item) {
