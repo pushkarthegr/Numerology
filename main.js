@@ -67,8 +67,11 @@ function basic(){
     document.getElementById("info").innerHTML = "Root: "+root().toString()+" Destiny: "+dest().toString();
     document.getElementById(ids[root().toString()]).innerHTML = document.getElementById(ids[root().toString()]).innerHTML+root().toString();
     document.getElementById(ids[dest().toString()]).innerHTML = document.getElementById(ids[dest().toString()]).innerHTML+dest().toString();
-    var numb = String(document.getElementById("birthdate").value).replace("0","");
+    console.log(document.getElementById("birthdate").value);
+    var numb = String(document.getElementById("birthdate").value);//.replace("0","");
+    console.log(numb);
     numb = numb.split("-");
+    console.log(numb);
     var year = numb[2].split("");
     year = [year[2],year[3]];
     for(i=0;i<year.length;i++){
@@ -96,7 +99,6 @@ function basic(){
 
     cloneTablesWithMahadashaAndDay(currentYears, currentYears+20, Number(numb[2]), root(), String(document.getElementById("birthdate").value).split("-"))
     //console.log(year);
-
     localStorage.setItem('birthdate', document.getElementById('birthdate').value); //save data
 
 }
@@ -131,6 +133,7 @@ function clear(){
     document.getElementById("seven").innerHTML = "&nbsp;";
     document.getElementById("eight").innerHTML = "&nbsp;";
     document.getElementById("nine").innerHTML = "&nbsp;";
+    document.getElementById("tableContainer").innerHTML = "";
 }
 function maha(){
     var numb = String(document.getElementById("birthdate").value);
