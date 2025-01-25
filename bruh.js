@@ -192,7 +192,7 @@ function cloneTablesWithMahadashaAndDay(startYear, endYear, birthYear, rootNumbe
     
     // Clear previous tables from the container
     container.innerHTML = '';
-    console.log(birthdayArray);
+    //console.log(birthdayArray);
     // Define cell positions for Mahadasha and Day of the Week number updates
     const cellPositions = {
       'R1C1': 3, 'R1C2': 1, 'R1C3': 9,
@@ -210,7 +210,7 @@ function cloneTablesWithMahadashaAndDay(startYear, endYear, birthYear, rootNumbe
     
       // Get the Day of the Week number for the current year
       const dayOfWeekNumber = getDayOfWeekNumber(birthdayArray, year);
-      console.log(year);
+      //console.log(year);
       //console.log(birthdayArray, year, dayOfWeekNumber);
     
       // Get all the rows in the cloned table

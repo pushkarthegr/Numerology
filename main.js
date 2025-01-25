@@ -67,13 +67,14 @@ function basic(){
     document.getElementById("info").innerHTML = "Root: "+root().toString()+" Destiny: "+dest().toString();
     document.getElementById(ids[root().toString()]).innerHTML = document.getElementById(ids[root().toString()]).innerHTML+root().toString();
     document.getElementById(ids[dest().toString()]).innerHTML = document.getElementById(ids[dest().toString()]).innerHTML+dest().toString();
-    console.log(document.getElementById("birthdate").value);
+    //console.log(document.getElementById("birthdate").value);
     var numb = String(document.getElementById("birthdate").value);//.replace("0","");
-    console.log(numb);
+    //console.log(numb);
     numb = numb.split("-");
-    console.log(numb);
+    //console.log(numb);
     var year = numb[2].split("");
     year = [year[2],year[3]];
+    //console.log(year)
     for(i=0;i<year.length;i++){
         if(year[i]!="0"){
             document.getElementById(ids[year[i]]).innerHTML = document.getElementById(ids[year[i]]).innerHTML+year[i];
@@ -87,8 +88,9 @@ function basic(){
         //console.log(month);
         }
     }
-    if(root() != Number(numb[0])){
+    if(root() != Number(numb[0])&&Number(numb[0])/root()!=10){
         day = numb[0].split("");
+        //console.log(Number(numb[0]));
         for(i=0;i<day.length;i++){
             if(day[i]!="0"){
                 document.getElementById(ids[day[i]]).innerHTML = document.getElementById(ids[day[i]]).innerHTML+day[i];
