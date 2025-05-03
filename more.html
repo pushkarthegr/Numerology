@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Name</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Add Name</h1>
+      <input type="text" placeholder="Enter a name" id="nameInput"><br><br>
+      <button onclick="handleInput()" style="background-color: #4CAF50;" id="enter">Input</button>
+      <button onclick="removes()" style="background-color: red;" id="remo">Remove</button>
+  </div>
+
+  <script>
+    arra = [];
+    const firebaseConfig = {
+                apiKey: "AIzaSyD5FHdRtRtAZHVAdaXOTIAG7qPVJApzOFk",
+                authDomain: "stock-fd93b.firebaseapp.com",
+                databaseURL:"https://stock-fd93b-default-rtdb.firebaseio.com",
+                projectId: "stock-fd93b",
+                storageBucket: "stock-fd93b.appspot.com",
+                messagingSenderId: "545670483992",
+                appId: "1:545670483992:web:2665cfd669b86bc662f36d",
+            };
+            firebase.initializeApp(firebaseConfig);
+            firebase.database().ref("/" + "StockShow/-OPJwnmNjbhL-Y-5ZfOy").on('value', function (snapshot) {
+              snapshot.forEach(function (childSnapshot) {
+                        childKey = childSnapshot.key; 
+                        values_main = childKey;
+                        values = childSnapshot.val();
+                        arra = values;
+                });
+          });
+    function handleInput() {
+        arra.push(document.getElementById("nameInput").value);
+        firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
+            Image:arra
+          });
+        document.getElementById("enter").disabled = true;
+    }
+    function removes(){
+        const valueToRemove = document.getElementById("nameInput").value; // change this to the value you want to remove
+        arra = arra.filter(item => item !== valueToRemove);
+        firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
+            Image:arra
+          });
+        document.getElementById("remo").disabled = true;
+    }
+
+  </script>
+
+</body>
+</html>
