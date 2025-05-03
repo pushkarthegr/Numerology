@@ -33,6 +33,10 @@ function load(){
         document.getElementById("birthdate")._flatpickr.setDate(getdat);
         document.getElementById("mainbutton").click();
     }
+    if(localStorage.getItem("isLoggedIn") != "true"){
+            alert("You not logged in!");
+            window.location = "test.html";
+        }
 }
 function formatDateDDMMYYYY(date) {
     const day = String(date.getDate()).padStart(2, '0');
