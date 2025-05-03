@@ -1,84 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sign-In</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+  <title>Google Login</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      font-family: Arial;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #login-result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
 </head>
 <body>
-    <form id="verify-form">
-        <input type="text" id="user-name" placeholder="Your Name" required />
-        <input type="email" id="user-email" placeholder="Your Email" required />
-        <button type="submit">Send Verification Code</button>
-    </form>
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-   (function(){
-      emailjs.init({
-        publicKey: "Ev04bSQQZhPJyLhBc",
-      });
-   })();
-</script>
+  <div>
+    <div id="g_id_signin"></div>
+    <div id="login-result"></div>
+  </div>
 
-</script>
-
-
-    <script>
-        //  const firebaseConfig = {
-        //         apiKey: "AIzaSyD5FHdRtRtAZHVAdaXOTIAG7qPVJApzOFk",
-        //         authDomain: "stock-fd93b.firebaseapp.com",
-        //         databaseURL:"https://stock-fd93b-default-rtdb.firebaseio.com",
-        //         projectId: "stock-fd93b",
-        //         storageBucket: "stock-fd93b.appspot.com",
-        //         messagingSenderId: "545670483992",
-        //         appId: "1:545670483992:web:2665cfd669b86bc662f36d",
-        //     };
-        //     firebase.initializeApp(firebaseConfig);
-              
-    </script>
-
-<script type="text/javascript">
-     const firebaseConfig = {
-                apiKey: "AIzaSyD5FHdRtRtAZHVAdaXOTIAG7qPVJApzOFk",
-                authDomain: "stock-fd93b.firebaseapp.com",
-                databaseURL:"https://stock-fd93b-default-rtdb.firebaseio.com",
-                projectId: "stock-fd93b",
-                storageBucket: "stock-fd93b.appspot.com",
-                messagingSenderId: "545670483992",
-                appId: "1:545670483992:web:2665cfd669b86bc662f36d",
-            };
-            firebase.initializeApp(firebaseConfig);
-        
-    verificationCode = "";
-    // Initialize EmailJS
-    emailjs.init("Ev04bSQQZhPJyLhBc"); // Replace with your EmailJS user ID
-
-    document.getElementById('verify-form').addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent default form submission
-
-        // Generate a random 6-digit verification code
-        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-        // Send email using EmailJS
-        emailjs.send("service_c8a4v6g", "template_kex9vll", {
-            //name: document.getElementById('user-name').value,
-            verification_code: verificationCode,  // Send dynamic verification code
-            email: document.getElementById('user-email').value
-        }).then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-            alert('Verification code sent successfully!');
-        }, function(error) {
-    
-            alert('Failed to send verification code.');
-        });
-    });
-
-</script>
+  <script src="script.js"></script>
 </body>
+<script>
+    // List of pre-authorized emails
+const authorizedEmails = [
+  "user1@example.com",
+  "user2@example.com",
+  "admin@example.com"
+];
+
+// Initialize Google Sign-In
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "530639179362-09mol77ad3ie3k97943t8te3stuglbkk.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+  google.accounts.id.renderButton(
+    document.getElementById("g_id_signin"),
+    { theme: "outline", size: "large" }
+  );
+};
+
+function handleCredentialResponse(response) {
+  const jwt = response.credential;
+  const payload = JSON.parse(atob(jwt.split('.')[1])); // decode JWT payload
+
+  const userEmail = payload.email;
+  const result = authorizedEmails.includes(userEmail);
+
+  document.getElementById("login-result").innerText = result ? "True" : "False";
+}
+
+</script>
 </html>
