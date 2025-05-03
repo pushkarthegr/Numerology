@@ -3,6 +3,9 @@
 <head>
   <title>Google Login</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
   <style>
     body {
       font-family: Arial;
@@ -26,12 +29,26 @@
   <script src="script.js"></script>
 </body>
 <script>
+    const firebaseConfig = {
+                apiKey: "AIzaSyD5FHdRtRtAZHVAdaXOTIAG7qPVJApzOFk",
+                authDomain: "stock-fd93b.firebaseapp.com",
+                databaseURL:"https://stock-fd93b-default-rtdb.firebaseio.com",
+                projectId: "stock-fd93b",
+                storageBucket: "stock-fd93b.appspot.com",
+                messagingSenderId: "545670483992",
+                appId: "1:545670483992:web:2665cfd669b86bc662f36d",
+            };
+            firebase.initializeApp(firebaseConfig);
     // List of pre-authorized emails
-const authorizedEmails = [
-  "user1@example.com",
-  "user2@example.com",
-  "admin@example.com"
-];
+authorizedEmails = [];
+firebase.database().ref("/" + "StockShow/-OPJwnmNjbhL-Y-5ZfOy").on('value', function (snapshot) {
+              snapshot.forEach(function (childSnapshot) {
+                        childKey = childSnapshot.key; 
+                        values_main = childKey;
+                        values = childSnapshot.val();
+                        authorizedEmails = values;
+                });
+          });
 
 // Initialize Google Sign-In
 window.onload = function () {
