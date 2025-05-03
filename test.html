@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Login</title>
+  <title>Numerology Login</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
@@ -20,7 +20,7 @@
     }
   </style>
 </head>
-<body>
+<body onload="load()">
   <div>
     <div id="g_id_signin"></div>
     <div id="login-result"></div>
@@ -29,6 +29,12 @@
   <script src="script.js"></script>
 </body>
 <script>
+    function load(){
+        if(localStorage.getItem("isLoggedIn") == "true"){
+            alert("You are already logged in!");
+            window.location = "index.html";
+        }
+    }
     const firebaseConfig = {
                 apiKey: "AIzaSyD5FHdRtRtAZHVAdaXOTIAG7qPVJApzOFk",
                 authDomain: "stock-fd93b.firebaseapp.com",
@@ -69,7 +75,12 @@ function handleCredentialResponse(response) {
   const userEmail = payload.email;
   const result = authorizedEmails.includes(userEmail);
 
-  document.getElementById("login-result").innerText = result ? "True" : "False";
+  if(result == true){
+    window.location = "index.html";
+    localStorage.setItem("isLoggedIn", "true");
+  }else{
+    alert("You are not a verified user!");
+  }
 }
 
 </script>
