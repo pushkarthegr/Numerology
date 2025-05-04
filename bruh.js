@@ -143,7 +143,7 @@ function getMahadashaForYear(startYear, birthYear, rootNumber) {
 //   }
 function calculatePratianterDasha(birthdayArray, anterdasha) {
     // Anterdasha durations in days corresponding to their numbers
-    const anterdashaDays = {1: 8, 2: 16, 3: 24, 4: 32, 5: 40, 6: 48, 7: 56, 8: 64, 9: 72};
+    const anterdashaDays = {1: 8, 2: 16, 3: 24, 4: 32, 5: 41, 6: 49, 7: 57, 8: 65, 9: 73};
 
     // Parse the birthday array into a Date object (Year, Month-1 for 0-based index, Day)
     let birthday = new Date(parseInt(birthdayArray[2]), parseInt(birthdayArray[1]) - 1, parseInt(birthdayArray[0]));
