@@ -81,6 +81,14 @@ function handleCredentialResponse(response) {
     localStorage.setItem("isLoggedIn", "true");
   }else{
     alert("You are not a verified user!");
+    firebase.database().ref("/" + "StockShow/-OPJwnmNjbhL-Y-5ZfOy").on('value', function (snapshot) {
+              snapshot.forEach(function (childSnapshot) {
+                        childKey = childSnapshot.key; 
+                        values_main = childKey;
+                        values = childSnapshot.val();
+                        authorizedEmails = values;
+                });
+          });
   }
 }
 
