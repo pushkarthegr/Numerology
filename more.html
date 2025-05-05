@@ -96,7 +96,8 @@
         firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
             Image:arra
           });
-        document.getElementById("enter").disabled = true;
+        alert("Successful!");
+      document.getElementById("nameInput").value = "";
     }
     function removes(){
         const valueToRemove = document.getElementById("nameInput").value; // change this to the value you want to remove
@@ -104,7 +105,8 @@
         firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
             Image:arra
           });
-        document.getElementById("remo").disabled = true;
+        alert("Successful!");
+      document.getElementById("nameInput").value = "";
     }
 
   </script>
