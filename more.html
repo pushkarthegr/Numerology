@@ -92,7 +92,7 @@
                 });
           });
     function handleInput() {
-        arra.push(document.getElementById("nameInput").value);
+        arra.push(toLowerCase(document.getElementById("nameInput").value));
         firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
             Image:arra
           });
