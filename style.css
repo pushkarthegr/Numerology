@@ -146,13 +146,14 @@ input[type=number].input { appearance: textfield; -moz-appearance: textfield; }
 .dot.maha  { background: var(--maha-fg); }
 .dot.antar { background: var(--antar-fg); }
 .dot.prati { background: var(--prati-fg); }
-.dot.root  { background: var(--accent); }
-.dot.dest  { background: #B26F5E; }
+.dot.root  { background: #8C8974; }
+.dot.dest  { background: #A67E66; }
 
 /* ---------- 3x3 number grid (#god + cloned year grids) ---------- */
-.numgrid { width: 100%; border-collapse: separate; border-spacing: 10px; margin: 0 auto; }
+.numgrid { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 10px; margin: 0 auto; }
 .numgrid td {
-  height: 62px; text-align: center; vertical-align: middle;
+  width: 33.333%; min-height: 62px; height: 62px; text-align: center; vertical-align: middle;
+  padding: 6px; overflow-wrap: anywhere;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--r);
@@ -161,7 +162,7 @@ input[type=number].input { appearance: textfield; -moz-appearance: textfield; }
 }
 
 /* Single-number highlights (rendered as small tonal chips) */
-.hl, .hl-maha, .hl-antar, .hl-prati {
+.hl, .hl-maha, .hl-antar, .hl-prati, .hl-root, .hl-dest {
   display: inline-block; min-width: 1.5em; padding: 1px 7px; margin-left: 2px;
   border-radius: 8px; font-weight: 800;
 }
@@ -169,9 +170,10 @@ input[type=number].input { appearance: textfield; -moz-appearance: textfield; }
 .hl-antar { color: var(--antar-fg); background: var(--antar-bg); border: 1px solid var(--antar-bd); }
 .hl-prati { color: var(--prati-fg); background: var(--prati-bg); border: 1px solid var(--prati-bd); }
 
-/* Root & Destiny — the two core numbers, shown as solid chips in the birth grid */
-.hl-root { color: var(--coconut); background: var(--accent);  border: 1px solid var(--accent); }
-.hl-dest { color: var(--coconut); background: #B26F5E;        border: 1px solid #A5624F; }
+/* Root & Destiny — the two anchor numbers, shown as soft toned-down chips in
+   neutral tones, deliberately outside the sage/blush/honey dasha palette */
+.hl-root { color: #575647; background: #E9E7DB; border: 1px solid #D6CFBC; }
+.hl-dest { color: #8A6A56; background: #F1E7DE; border: 1px solid #E4D5C8; }
 
 /* ---------- Generated year cards ---------- */
 .years { display: flex; flex-direction: column; gap: 18px; }
