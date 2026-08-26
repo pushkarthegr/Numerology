@@ -2,61 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Add Name</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 300px;
-    }
-
-    h1 {
-      margin-bottom: 30px;
-      font-size: 24px;
-      color: #333;
-    }
-
-    .input-group {
-      display: flex;
-      align-items: center;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    button {
-      padding: 10px 20px;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numerology — Manage Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
@@ -64,14 +15,32 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>Add Name</h1>
-      <input type="text" placeholder="Enter a name" id="nameInput"><br><br>
-      <button onclick="handleInput()" style="background-color: #4CAF50;" id="enter">Input</button>
-      <button onclick="removes()" style="background-color: red;" id="remo">Remove</button>
+  <div class="centered-page">
+    <main class="auth-card">
+      <a class="backlink" href="index.html">← Back to charts</a>
+      <div class="brand center"><span class="brand-mark">✦</span> Numerology</div>
+      <p class="auth-sub">Add or remove an authorized reader by name.</p>
+
+      <div class="stack">
+        <input type="text" class="input" placeholder="Enter a name" id="nameInput" autocomplete="off">
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="handleInput()" id="enter">Add</button>
+          <button class="btn btn-danger" onclick="removes()" id="remo">Remove</button>
+        </div>
+      </div>
+    </main>
   </div>
 
+  <div class="toast" id="toast"></div>
+
   <script>
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(function () { t.classList.remove("show"); }, 2200);
+    }
+
     arra = [];
     const firebaseConfig = {
                 apiKey: "AIzaSyD5FHdRtRtAZHVAdaXOTIAG7qPVJApzOFk",
@@ -85,7 +54,7 @@
             firebase.initializeApp(firebaseConfig);
             firebase.database().ref("/" + "StockShow/-OPJwnmNjbhL-Y-5ZfOy").on('value', function (snapshot) {
               snapshot.forEach(function (childSnapshot) {
-                        childKey = childSnapshot.key; 
+                        childKey = childSnapshot.key;
                         values_main = childKey;
                         values = childSnapshot.val();
                         arra = values;
@@ -96,7 +65,7 @@
         firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
             Image:arra
           });
-        alert("Successful!");
+        showToast("Name added");
       document.getElementById("nameInput").value = "";
     }
     function removes(){
@@ -105,7 +74,7 @@
         firebase.database().ref("StockShow/-OPJwnmNjbhL-Y-5ZfOy").update({
             Image:arra
           });
-        alert("Successful!");
+        showToast("Name removed");
       document.getElementById("nameInput").value = "";
     }
 

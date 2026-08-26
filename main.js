@@ -69,8 +69,14 @@ function basic(){
     clear();
     const currentYears = Number(document.getElementById("inputyear").value);
     document.getElementById("info").innerHTML = "Root: "+root().toString()+" Destiny: "+dest().toString();
-    document.getElementById(ids[root().toString()]).innerHTML = document.getElementById(ids[root().toString()]).innerHTML+root().toString();
-    document.getElementById(ids[dest().toString()]).innerHTML = document.getElementById(ids[dest().toString()]).innerHTML+dest().toString();
+    var rootChip = document.createElement("span");
+    rootChip.className = "hl-root";
+    rootChip.textContent = root().toString();
+    document.getElementById(ids[root().toString()]).appendChild(rootChip);
+    var destChip = document.createElement("span");
+    destChip.className = "hl-dest";
+    destChip.textContent = dest().toString();
+    document.getElementById(ids[dest().toString()]).appendChild(destChip);
     //console.log(document.getElementById("birthdate").value);
     var numb = String(document.getElementById("birthdate").value);//.replace("0","");
     //console.log(numb);

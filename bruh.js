@@ -230,14 +230,14 @@ function cloneTablesWithMahadashaAndDay(startYear, endYear, birthYear, rootNumbe
           let newContent = cellOriginalValue;
           newContent += "\u00A0";
           
-          // Append Mahadasha number in red color based on cell position
+          // Append Mahadasha number as a sage highlight chip based on cell position
           if (mahadashaNumber == cellPositions[cellPosition]) {
-            newContent += `<span style="color: red;font-weight:bold;">${mahadashaNumber}</span>`;
+            newContent += `<span class="hl-maha">${mahadashaNumber}</span>`;
           }
-  
-          // Append Day of the Week number in green color based on cell position
+
+          // Append Antardasha number as a blush highlight chip based on cell position
           if (dayOfWeekNumber == cellPositions[cellPosition]) {
-            newContent += `<span style="color: blue;font-weight:bold;">${dayOfWeekNumber}</span>`;
+            newContent += `<span class="hl-antar">${dayOfWeekNumber}</span>`;
           }
   
           // Update the cell's inner HTML
@@ -245,38 +245,53 @@ function cloneTablesWithMahadashaAndDay(startYear, endYear, birthYear, rootNumbe
         }
       }
     
-      // Create a title element for the table (using <h3> for example)
-      const title = document.createElement('h3');
-      title.innerHTML = `Year: ${year} <span style="color: red;">Mahadasha: ${mahadashaNumber}</span>, <span style="color: blue;">Antradasha: ${dayOfWeekNumber}</span>`;
-      title.style.textAlign = 'center';  // Center align the title
-    
+      // Build the card header for this year (year + dasha tags)
+      const title = document.createElement('div');
+      title.className = 'year-head';
+      title.innerHTML = `<span class="year-num">${year}</span>`
+        + `<span class="year-tags">`
+        + `<span class="tag tag-maha">Mahadasha&nbsp;${mahadashaNumber}</span>`
+        + `<span class="tag tag-antar">Antardasha&nbsp;${dayOfWeekNumber}</span>`
+        + `</span>`;
+
       // Fetch Pratianter Dasha results for the current year
       const pratianterDashaResults = calculatePratianterDasha(birthdayArray, dayOfWeekNumber);
-      
-      // Create a new 2x9 table
+
+      // Create the Pratianter Dasha strip (2 rows: end dates + dasha numbers)
       const pratianterTable = document.createElement('table');
-      pratianterTable.style.borderCollapse = 'collapse';
-      pratianterTable.style.width = '100%';
-      pratianterTable.style.textAlign = 'center';
-      
+      pratianterTable.className = 'prati-table';
+
       // Create table rows
       const row1 = pratianterTable.insertRow();
+      row1.className = 'prati-dates';
       const row2 = pratianterTable.insertRow();
-      
+      row2.className = 'prati-vals';
+
       // Add the dates and corresponding dasha numbers to the table
       Object.entries(pratianterDashaResults).forEach(([date, dasha]) => {
         const cell1 = row1.insertCell();
-        cell1.style.border = '1px solid black';
         cell1.innerText = date.split('-').slice(2, 3).concat(date.split('-').slice(1, 2)).join('-');
-        
+
         const cell2 = row2.insertCell();
-        cell2.style.border = '1px solid black';
-        cell2.innerHTML = `<span style="color: green;">${dasha}</span>`;
+        cell2.innerHTML = `<span class="hl-prati">${dasha}</span>`;
       });
-      
-      // Append the title, cloned table, and new 2x9 table to the container
-      container.appendChild(title);
-      container.appendChild(clone);
-      container.appendChild(pratianterTable);
+
+      // Assemble the year card: header + birth grid + scrollable Pratianter strip
+      clone.classList.add('year-grid');
+
+      const pratiBlock = document.createElement('div');
+      pratiBlock.className = 'prati-block';
+      pratiBlock.innerHTML = '<div class="prati-label">Pratianter Dasha</div>';
+      const pratiScroll = document.createElement('div');
+      pratiScroll.className = 'prati-scroll';
+      pratiScroll.appendChild(pratianterTable);
+      pratiBlock.appendChild(pratiScroll);
+
+      const yearCard = document.createElement('section');
+      yearCard.className = 'year-card';
+      yearCard.appendChild(title);
+      yearCard.appendChild(clone);
+      yearCard.appendChild(pratiBlock);
+      container.appendChild(yearCard);
     }
 }

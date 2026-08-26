@@ -3,65 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Numerology</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Numerology — Dasha Chart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
-    <style rel="stylesheet" ahref="style.css"></style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload="load()">
 
-    <div class="container">
-        <button class="btn btn-danger" id="logout" onclick="logou()">Log out</button>
-        <br>
-        <h1 class="text-center">Numerology</h1>
+    <header class="appbar">
+        <div class="wrap appbar-inner">
+            <a class="brand" href="index.html"><span class="brand-mark">✦</span> Numerology</a>
+            <button class="btn btn-ghost" id="logout" onclick="logou()">Log out</button>
+        </div>
+    </header>
 
-        <!-- Date Input -->
-        <form class="text-center">
-            <div class="form-group">
-                <label for="birthdate">Birthdate:</label>
-                <input type="date" class="form-control w-50 mx-auto" id="birthdate">
+    <main class="wrap">
+
+        <!-- Input panel -->
+        <section class="panel">
+            <h1 class="panel-title">Dasha chart</h1>
+            <p class="panel-sub">Enter a birth date to map the Mahadasha, Antardasha and Pratianter cycles.</p>
+
+            <div class="controls">
+                <div class="field">
+                    <label class="lbl" for="birthdate">Birth date</label>
+                    <input type="text" class="input" id="birthdate" placeholder="DD-MM-YYYY" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label class="lbl" for="inputyear">Start year</label>
+                    <input type="number" class="input" id="inputyear" inputmode="numeric">
+                </div>
             </div>
-            <p id="info"></p>
-        </form>
 
-        <!-- Stylish 3x3 Table -->
-        <table class="table table-bordered w-75 mx-auto" id="god">
-            <tbody>
-                <tr>
-                    <td id="three">&nbsp;</td>
-                    <td id="one">&nbsp;</td>
-                    <td id="nine">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td id="six">&nbsp;</td>
-                    <td id="seven">&nbsp;</td>
-                    <td id="five">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td id="two">&nbsp;</td>
-                    <td id="eight">&nbsp;</td>
-                    <td id="four">&nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
-        <input type="number" class="form-control" id="inputyear"><br>
-        <button onclick="basic()" class="btn btn-success" style="text-align: center;" id="mainbutton">Find</button>
-        <br>
-        <p>*Mahadasha is in red and Antardasha is in blue</p>
-        <hr>
-        <div id="tableContainer"></div>
-        <br>
-    </div>
+            <button onclick="basic()" class="btn btn-primary btn-block" id="mainbutton">Generate charts</button>
+
+            <p id="info" class="info"></p>
+        </section>
+
+        <!-- Birth grid + legend -->
+        <section class="panel">
+            <div class="panel-head-row">
+                <h2 class="panel-title sm">Birth grid</h2>
+                <div class="legend">
+                    <span><span class="dot root"></span>Root</span>
+                    <span><span class="dot dest"></span>Destiny</span>
+                </div>
+            </div>
+
+            <table class="numgrid" id="god">
+                <tbody>
+                    <tr>
+                        <td id="three">&nbsp;</td>
+                        <td id="one">&nbsp;</td>
+                        <td id="nine">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="six">&nbsp;</td>
+                        <td id="seven">&nbsp;</td>
+                        <td id="five">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="two">&nbsp;</td>
+                        <td id="eight">&nbsp;</td>
+                        <td id="four">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Generated year-by-year charts -->
+        <div id="tableContainer" class="years">
+            <div class="empty">
+                <span class="glyph">✦</span>
+                Pick a birth date and start year, then tap <strong>Generate charts</strong> to see the dasha timeline.
+            </div>
+        </div>
+
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="bruh.js"></script>
-    
     <script src="main.js"></script>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         function logou(){
             localStorage.removeItem("isLoggedIn");

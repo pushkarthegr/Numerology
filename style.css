@@ -1,31 +1,289 @@
+/* =========================================================
+   Numerology — Design System
+   Palette: Savory Sage · Blush Beet · Peach · Oat · Cream
+   Type:    Fraunces (display / italic accents) + Mulish (UI)
+   ========================================================= */
+
+:root {
+  /* Reference palette */
+  --sage:        #818263;
+  --avocado:     #C2C395;
+  --blush:       #DDBAAE;
+  --peach:       #EFD7CF;
+  --oat:         #DCD4C1;
+  --honey:       #F6EAD4;
+  --coconut:     #FFFAF2;
+
+  /* Surfaces & ink */
+  --bg:          #FBF6EC;
+  --surface:     #FFFDF7;
+  --surface-2:   #F6EFE0;
+  --border:      #ECE3D0;
+  --border-soft: #F1E9D8;
+  --ink:         #48493A;
+  --ink-soft:    #6B6C58;
+  --muted:       #8F8B76;
+
+  /* Accents */
+  --accent:      #818263;
+  --accent-deep: #5F6047;
+
+  /* Highlight tones (single-number highlights, kept from the app) */
+  --maha-fg: #5C5D40;  --maha-bg: #E3E4CC;  --maha-bd: #C9CAAC;  /* sage  */
+  --antar-fg:#A5675A;  --antar-bg:#F2DFD7;   --antar-bd:#E2C5BA; /* blush */
+  --prati-fg:#9A7A2B;  --prati-bg:#F7ECD3;   --prati-bd:#EAD8AC; /* honey */
+
+  /* Shape & motion */
+  --r-sm: 10px;
+  --r:    16px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+  --shadow-sm: 0 2px 8px rgba(72,60,30,.05);
+  --shadow:    0 12px 34px rgba(72,60,30,.09);
+  --ring: 0 0 0 3px rgba(129,130,99,.35);
+  --ease: cubic-bezier(.2,.7,.2,1);
+
+  --wrap: 680px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
 body {
-    background-color: #f4f4f4;
+  margin: 0;
+  font-family: 'Mulish', system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(120% 90% at 100% 0%, #FFFDF7 0%, transparent 55%),
+    radial-gradient(120% 90% at 0% 100%, #F4EEDD 0%, transparent 50%),
+    var(--bg);
+  background-attachment: fixed;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-.container {
-    margin-top: 50px;
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 18px; }
+
+/* ---------- App bar ---------- */
+.appbar {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(251,246,236,.82);
+  backdrop-filter: saturate(1.1) blur(10px);
+  -webkit-backdrop-filter: saturate(1.1) blur(10px);
+  border-bottom: 1px solid var(--border);
 }
-table {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.appbar-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+.brand {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+  font-size: 22px; letter-spacing: -.01em; color: var(--ink); text-decoration: none;
 }
-th, td {
-    text-align: center;
-    padding: 15px;
+.brand-mark { color: var(--accent); font-style: normal; font-size: .9em; }
+.brand.center { justify-content: center; font-size: 26px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  font: inherit; font-weight: 700; cursor: pointer;
+  border: 1px solid transparent; border-radius: var(--r);
+  padding: 12px 18px; transition: transform .15s var(--ease), background .2s, box-shadow .2s, color .2s;
+  -webkit-tap-highlight-color: transparent;
 }
-th {
-    background-color: #343a40;
-    color: white;
+.btn:active { transform: translateY(1px) scale(.995); }
+.btn-primary { background: var(--ink); color: var(--coconut); box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--accent-deep); }
+.btn-ghost { background: transparent; color: var(--ink-soft); border-color: var(--border); }
+.btn-ghost:hover { background: var(--surface-2); color: var(--ink); }
+.btn-block { display: block; width: 100%; padding-block: 15px; font-size: 16px; }
+
+/* ---------- Panels ---------- */
+main.wrap { padding-top: 26px; padding-bottom: 60px; }
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 24px 22px;
+  box-shadow: var(--shadow);
+  margin-bottom: 22px;
 }
-td {
-    background-color: #f8f9fa;
+.panel-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 26px; letter-spacing: -.01em; margin: 0; }
+.panel-title.sm { font-size: 19px; }
+.panel-sub { color: var(--muted); margin: 6px 0 20px; font-size: 15px; }
+.panel-head-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+
+/* ---------- Form controls ---------- */
+.controls { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.lbl { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.input {
+  font: inherit; color: var(--ink); width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 13px 15px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
 }
-input[type="date"] {
-    margin-bottom: 20px;
+.input::placeholder { color: #b6ad97; }
+.input:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); background: var(--surface); }
+input[type=number].input { appearance: textfield; -moz-appearance: textfield; }
+
+/* Root / Destiny summary produced by the app (#info) */
+.info:empty { display: none; }
+.info {
+  margin: 18px 0 0; padding: 14px 16px;
+  background: linear-gradient(180deg, var(--honey), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  text-align: center; font-weight: 700; color: var(--accent-deep);
+  letter-spacing: .01em;
 }
-maha{
-    color:red;
+
+/* ---------- Legend ---------- */
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot.maha  { background: var(--maha-fg); }
+.dot.antar { background: var(--antar-fg); }
+.dot.prati { background: var(--prati-fg); }
+.dot.root  { background: var(--accent); }
+.dot.dest  { background: #B26F5E; }
+
+/* ---------- 3x3 number grid (#god + cloned year grids) ---------- */
+.numgrid { width: 100%; border-collapse: separate; border-spacing: 10px; margin: 0 auto; }
+.numgrid td {
+  height: 62px; text-align: center; vertical-align: middle;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-size: 19px; font-weight: 700; color: var(--ink);
+  line-height: 1.25;
 }
-antar{
-    color:green;
+
+/* Single-number highlights (rendered as small tonal chips) */
+.hl, .hl-maha, .hl-antar, .hl-prati {
+  display: inline-block; min-width: 1.5em; padding: 1px 7px; margin-left: 2px;
+  border-radius: 8px; font-weight: 800;
+}
+.hl-maha  { color: var(--maha-fg);  background: var(--maha-bg);  border: 1px solid var(--maha-bd); }
+.hl-antar { color: var(--antar-fg); background: var(--antar-bg); border: 1px solid var(--antar-bd); }
+.hl-prati { color: var(--prati-fg); background: var(--prati-bg); border: 1px solid var(--prati-bd); }
+
+/* Root & Destiny — the two core numbers, shown as solid chips in the birth grid */
+.hl-root { color: var(--coconut); background: var(--accent);  border: 1px solid var(--accent); }
+.hl-dest { color: var(--coconut); background: #B26F5E;        border: 1px solid #A5624F; }
+
+/* ---------- Generated year cards ---------- */
+.years { display: flex; flex-direction: column; gap: 18px; }
+.year-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 18px 16px 20px;
+  box-shadow: var(--shadow-sm);
+}
+.year-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.year-num { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 28px; color: var(--ink); }
+.year-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+.tag-maha  { color: var(--maha-fg);  background: var(--maha-bg);  border-color: var(--maha-bd); }
+.tag-antar { color: var(--antar-fg); background: var(--antar-bg); border-color: var(--antar-bd); }
+
+/* Pratianter Dasha strip — scrolls horizontally on small screens */
+.prati-block { margin-top: 14px; }
+.prati-label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.prati-scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  scrollbar-width: thin; scrollbar-color: var(--oat) transparent;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+}
+.prati-scroll::-webkit-scrollbar { height: 6px; }
+.prati-scroll::-webkit-scrollbar-thumb { background: var(--oat); border-radius: 99px; }
+.prati-table { border-collapse: separate; border-spacing: 7px; margin: 0 auto; }
+.prati-table td { text-align: center; }
+.prati-dates td { font-size: 11px; color: var(--muted); white-space: nowrap; padding: 2px 4px; }
+.prati-vals  td { padding-top: 0; }
+.prati-vals .hl-prati { min-width: 2.1em; padding: 5px 8px; font-size: 15px; }
+
+/* ---------- Empty state ---------- */
+.empty {
+  text-align: center; color: var(--muted);
+  border: 1px dashed var(--border); border-radius: var(--r-lg);
+  padding: 40px 22px; background: var(--surface);
+}
+.empty .glyph { font-size: 30px; color: var(--avocado); display: block; margin-bottom: 8px; }
+
+/* =========================================================
+   Auth (test.html) & Manage names (more.html)
+   ========================================================= */
+.centered-page { min-height: 100dvh; display: grid; place-items: center; padding: 24px 18px; }
+.auth-card {
+  width: 100%; max-width: 380px; text-align: center;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 34px 28px; box-shadow: var(--shadow);
+}
+.auth-sub { color: var(--muted); margin: 10px 0 24px; font-size: 15px; }
+.gbtn { display: flex; justify-content: center; min-height: 44px; }
+#login-result { margin-top: 14px; color: var(--ink-soft); font-weight: 600; }
+.auth-email { margin: 18px 0 0; font-size: 14px; font-weight: 600; color: var(--muted); word-break: break-word; }
+.auth-foot { margin-top: 22px; font-size: 12px; color: var(--muted); }
+
+/* Manage names */
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn-danger { background: var(--blush); color: #6d3a30; }
+.btn-danger:hover { background: #d3a597; }
+.backlink { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 18px; }
+.backlink:hover { color: var(--ink); }
+
+/* Toast */
+.toast {
+  position: fixed; left: 50%; bottom: 26px;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink); color: var(--coconut);
+  padding: 12px 20px; border-radius: 999px; font-weight: 700; font-size: 14px;
+  box-shadow: var(--shadow); opacity: 0; pointer-events: none;
+  transition: opacity .25s var(--ease), transform .25s var(--ease); z-index: 50;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* =========================================================
+   flatpickr theming
+   ========================================================= */
+.flatpickr-calendar {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow);
+  font-family: 'Mulish', sans-serif;
+}
+.flatpickr-calendar.arrowTop:before, .flatpickr-calendar.arrowTop:after,
+.flatpickr-calendar.arrowBottom:before, .flatpickr-calendar.arrowBottom:after { display: none; }
+.flatpickr-months, .flatpickr-month { background: transparent; color: var(--ink); fill: var(--ink); }
+.flatpickr-current-month input.cur-year, .flatpickr-current-month .flatpickr-monthDropdown-months { color: var(--ink); font-weight: 700; }
+.flatpickr-monthDropdown-months { background: var(--surface); }
+.flatpickr-weekday { color: var(--muted); font-weight: 700; }
+.flatpickr-day { color: var(--ink); border-radius: 10px; }
+.flatpickr-day:hover, .flatpickr-day.today:hover { background: var(--honey); border-color: var(--honey); }
+.flatpickr-day.today { border-color: var(--avocado); }
+.flatpickr-day.selected, .flatpickr-day.selected:hover {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+.flatpickr-day.flatpickr-disabled, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay { color: #cfc7b3; }
+.flatpickr-months .flatpickr-prev-month:hover svg, .flatpickr-months .flatpickr-next-month:hover svg { fill: var(--accent); }
+
+/* ---------- Focus & motion ---------- */
+:focus-visible { outline: none; box-shadow: var(--ring); border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .panel { padding: 20px 16px; border-radius: var(--r-lg); }
+  .panel-title { font-size: 23px; }
+  .controls { grid-template-columns: 1fr; }
+  .numgrid { border-spacing: 8px; }
+  .numgrid td { height: 56px; font-size: 18px; }
+  .year-num { font-size: 24px; }
 }
