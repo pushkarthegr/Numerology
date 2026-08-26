@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Numerology Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numerology — Sign in</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
-  <style>
-    body {
-      font-family: Arial;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    #login-result {
-      margin-top: 20px;
-      font-size: 1.2em;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body onload="load()">
-  <div>
-    <div id="g_id_signin"></div>
-    <div id="login-result"></div>
+  <div class="centered-page">
+    <main class="auth-card">
+      <div class="brand center"><span class="brand-mark">✦</span> Numerology</div>
+      <p class="auth-sub">Sign in with Google to open your dasha workspace.</p>
+
+      <div id="g_id_signin" class="gbtn"></div>
+      <div id="login-result"></div>
+
+      <h2 id="showme" class="auth-email"></h2>
+      <p class="auth-foot">Access is limited to authorized readers.</p>
+    </main>
   </div>
-<br><br>
-  <h2 id="showme"></h2>
   <script src="script.js"></script>
-</body>
 <script>
     function load(){
         if(localStorage.getItem("isLoggedIn") == "true"){
@@ -50,7 +48,7 @@
 authorizedEmails = [];
 firebase.database().ref("/" + "StockShow/-OPJwnmNjbhL-Y-5ZfOy").on('value', function (snapshot) {
               snapshot.forEach(function (childSnapshot) {
-                        childKey = childSnapshot.key; 
+                        childKey = childSnapshot.key;
                         values_main = childKey;
                         values = childSnapshot.val();
                         authorizedEmails = values;
@@ -83,7 +81,7 @@ function handleCredentialResponse(response) {
     alert("You are not a verified user!");
     firebase.database().ref("/" + "StockShow/-OPJwnmNjbhL-Y-5ZfOy").on('value', function (snapshot) {
               snapshot.forEach(function (childSnapshot) {
-                        childKey = childSnapshot.key; 
+                        childKey = childSnapshot.key;
                         values_main = childKey;
                         values = childSnapshot.val();
                         authorizedEmails = values;
@@ -93,4 +91,5 @@ function handleCredentialResponse(response) {
 }
 
 </script>
+</body>
 </html>
